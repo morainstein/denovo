@@ -1,0 +1,23 @@
+{
+    "name": "morainstein/denovo",
+    "autoload": {
+        "psr-4": {
+            "Morainstein\\Denovo\\": "src/"
+        },
+        "files": [
+            "pdo.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "morainstein",
+            "email": "nichroberto@gmail.com"
+        }
+    ],
+    "scripts": {
+        "run": "php -S localhost:8080 -t public/"
+    },
+    "require": {
+        "ramsey/uuid": "^4.9"
+    }
+}
