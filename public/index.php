@@ -1,63 +1,62 @@
 <?php
+
+use Morainstein\Denovo\Controllers\UsuarioController;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $pdo = conn();
 
-$rota = $_SERVER['REQUEST_URI'] ?? "/";
+$recurso = $_SERVER['PATH_INFO'] ?? "/";
 $metodo = $_SERVER['REQUEST_METHOD'];
 
+$rota = "$metodo|$recurso";
 
-if($rota == '/usuario/create' && $metodo == 'GET'){
+$rotas = [
+  'GET|/usuario/create' => [UsuarioController::class, 'formCreate'],
+  'POST|/usuario/create' => [UsuarioController::class, 'create'],
+  'GET|/usuario/all' => [UsuarioController::class, ''],
+  'GET|/usuario/edit' => [UsuarioController::class, ''],
+  'POST|/usuario/edit' => [UsuarioController::class, ''],
+  'POST|/usuario/delete' => [UsuarioController::class, ''],
+];
+
+$controlador = new $rotas[$rota][0]();
+$funcao = $rotas[$rota][1];
+
+$controlador->$funcao();
+
+
+
+
+
+
+
+
+
+
+
+
+// // Rota para formulário de criação de usuário
+// if($rota == '/usuario/create' && $metodo == 'GET'){
   
-  include_once __DIR__ . '/../views/home.php';
+//   include_once __DIR__ . '/../views/home.php';
 
-} else if($rota == '/usuario/create' && $metodo == 'POST'){
+// // Rota para criação de usuário
+// } else if($rota == '/usuario/create' && $metodo == 'POST'){
 
-  var_dump($_POST);
+// // Rota para selecionar todos os usuários
+// } else if($rota == '/usuario/all' && $metodo == 'GET'){
 
-} else if($rota == '/coisas'){
+// // Rota para formulário de edição de usuário  
+// } else if($rota == '/usuario/edit' && $metodo == 'GET'){
 
-  echo "rota coisas";
+// // Rota para editar usuário  
+// } else if($rota == '/usuario/edit' && $metodo == 'POST'){
 
-} else{
-
-  http_response_code(404);
-}
-
-
-use Ramsey\Uuid\Uuid;
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
-  define("DB_NAME", "php");
-  define("DB_HOST", "localhost");
-  define("DB_USER", "root");
-  define("DB_PASS", "123");
-
-  try {
-    $pdo = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
-  } catch (PDOException $e) {
-    echo "Erro com o banco de dados: ".$e->getMessage();
-  }
-
-$rota = $_SERVER['REQUEST_URI'] ?? "/";
-$metodo = $_SERVER['REQUEST_METHOD'];
-
-
-if($rota == '/usuario/create' && $metodo == 'GET'){
+// // Rota para deletar usuário  
+// } else if($rota == '/usuario/delete'){
   
-  include_once __DIR__ . '/../views/home.php';
-
-} else if($rota == '/usuario/create' && $metodo == 'POST'){
-
-  var_dump($_POST);
-
-} else if($rota == '/coisas'){
-
-  echo "rota coisas";
-
-} else{
-//Alerkina777
-  http_response_code(404);
-}
-
+// } else{  
+//   http_response_code(404);
+//   echo "<h1>ROTA NÃO EXISTENTE</h1>";
+// }
