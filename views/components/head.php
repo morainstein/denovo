@@ -6,3 +6,10 @@
   <link rel="stylesheet" href="/styles/style.css">
   <title>Home</title>
 </head>
+
+<?php
+  if(isset($_SESSION['mensagem'])) {
+    ?> <div class="alerta"> <?=$_SESSION['mensagem']?> </div> <?php
+    unset($_SESSION['mensagem']);
+  }
+?>
